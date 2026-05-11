@@ -2456,11 +2456,11 @@ case 4: // OLD STAGE 2: Detection and Notifications
               )}
             </div>
             <Button
-  onClick={nextStage}
-  className="mt-6 px-3 py-2 text-[10px] sm:text-sm font-bold uppercase gradient-premium text-white rounded-lg shadow-xl hover:opacity-90 transition-all duration-300 animate-pulse-glow mx-auto text-center whitespace-normal leading-tight"
-  >
-  IF YOU ARE SURE, CLICK HERE
-  </Button>
+              onClick={nextStage}
+              className="w-full py-5 text-xl font-bold uppercase gradient-premium text-white rounded-xl shadow-2xl hover:opacity-90 transition-all duration-300 transform hover:scale-105 animate-pulse-glow mt-6"
+            >
+              IF YOU ARE SURE, CLICK HERE
+            </Button>
           </div>
         )
 case 5: // NEW STAGE: Tinder Likes Screen
