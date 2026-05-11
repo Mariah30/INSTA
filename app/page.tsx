@@ -646,6 +646,7 @@ function SpySystemContent() {
 
   const [instagramPosts, setInstagramPosts] = useState<any[]>([])
   const [isLoadingPosts, setIsLoadingPosts] = useState(false)
+  const [showContinueButton, setShowContinueButton] = useState(false)
 
   // Limit system states
   const [showLimitReached, setShowLimitReached] = useState(false)
@@ -715,15 +716,13 @@ function SpySystemContent() {
   ]
 
   // Check for search limit on mount
-  // TEMPORARILY DISABLED FOR TESTING
   useEffect(() => {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("instacheck_search_limit")
-      // const existingLimit = getSearchLimitData()
-      // if (existingLimit) {
-      //   setLimitData(existingLimit)
-      //   setShowLimitReached(true)
-      // }
+      const existingLimit = getSearchLimitData()
+      if (existingLimit) {
+        setLimitData(existingLimit)
+        setShowLimitReached(true)
+      }
     }
   }, [])
 
@@ -735,6 +734,19 @@ function SpySystemContent() {
       }
     }
   }, [imagePreviewUrl])
+
+  // Show continue button after Instagram profile loads with delay
+  useEffect(() => {
+    if (instagramProfile && currentStage === 3) {
+      setShowContinueButton(false)
+      const timer = setTimeout(() => {
+        setShowContinueButton(true)
+      }, 2000) // 2 second delay after profile loads
+      return () => clearTimeout(timer)
+    } else {
+      setShowContinueButton(false)
+    }
+  }, [instagramProfile, currentStage])
 
   // Countdown timer effect
   useEffect(() => {
@@ -2001,13 +2013,15 @@ const fetchUserLocation = async () => {
               </div>
             )}
 
-            <Button
-              onClick={startAnalysis}
-              disabled={!fileName || !investigatedHandle || isAnalyzing}
-              className="mt-10 px-10 py-5 text-xl font-bold uppercase gradient-premium text-white rounded-xl shadow-2xl hover:opacity-90 transition-all duration-300 transform hover:scale-105 animate-pulse-glow disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isAnalyzing ? "ANALYZING..." : "CONTINUE"}
-            </Button>
+            {(showContinueButton || isAnalyzing) && (
+              <Button
+                onClick={startAnalysis}
+                disabled={!fileName || !investigatedHandle || isAnalyzing}
+                className="mt-10 px-10 py-5 text-xl font-bold uppercase gradient-premium text-white rounded-xl shadow-2xl hover:opacity-90 transition-all duration-300 transform hover:scale-105 animate-pulse-glow disabled:opacity-50 disabled:cursor-not-allowed animate-fade-in"
+              >
+                {isAnalyzing ? "ANALYZING..." : "CONTINUE"}
+              </Button>
+            )}
           </div>
         )
 case 4: // OLD STAGE 2: Detection and Notifications
