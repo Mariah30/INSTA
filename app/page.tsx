@@ -424,14 +424,14 @@ function TinderSearchStage({ instagramProfile, imagePreviewUrl, onComplete }: {
       {/* Title */}
       <div className="space-y-2">
         <h2 className="text-2xl font-bold text-foreground">
-          {searchComplete ? "PERFIL ENCONTRADO!" : "BUSCANDO PERFIL SUSPEITO"}
+          {searchComplete ? "PROFILE FOUND!" : "SEARCHING SUSPECT PROFILE"}
         </h2>
         <p className="text-lg text-pink-500 font-semibold flex items-center justify-center gap-2">
           <svg className={`w-6 h-6 text-pink-500 ${!searchComplete ? 'animate-pulse' : ''}`} viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
             <path d="M12 6c-2.67 0-5.33 1.33-5.33 4s2.66 4 5.33 4 5.33-1.33 5.33-4-2.66-4-5.33-4z"/>
           </svg>
-          NO TINDER
+          ON TINDER
           <svg className={`w-6 h-6 text-pink-500 ${!searchComplete ? 'animate-pulse' : ''}`} viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
             <path d="M12 6c-2.67 0-5.33 1.33-5.33 4s2.66 4 5.33 4 5.33-1.33 5.33-4-2.66-4-5.33-4z"/>
@@ -486,26 +486,26 @@ function TinderSearchStage({ instagramProfile, imagePreviewUrl, onComplete }: {
           />
         </div>
         <p className="text-sm text-muted-foreground">
-          {searchComplete ? "Busca concluida!" : `Analisando base de dados... ${Math.round(progress)}%`}
+          {searchComplete ? "Search complete!" : `Analyzing database... ${Math.round(progress)}%`}
         </p>
       </div>
 
       {/* Status Messages */}
       <div className="space-y-2 text-sm">
         {progress > 15 && (
-          <p className="text-muted-foreground animate-fade-in">Conectando aos servidores do Tinder...</p>
+          <p className="text-muted-foreground animate-fade-in">Connecting to Tinder servers...</p>
         )}
         {progress > 35 && (
-          <p className="text-muted-foreground animate-fade-in">Verificando perfis correspondentes...</p>
+          <p className="text-muted-foreground animate-fade-in">Checking matching profiles...</p>
         )}
         {progress > 55 && (
-          <p className="text-pink-500 font-semibold animate-fade-in">Perfil suspeito localizado!</p>
+          <p className="text-pink-500 font-semibold animate-fade-in">Suspect profile located!</p>
         )}
         {progress > 75 && (
-          <p className="text-muted-foreground animate-fade-in">Carregando dados do perfil...</p>
+          <p className="text-muted-foreground animate-fade-in">Loading profile data...</p>
         )}
         {searchComplete && (
-          <p className="text-green-500 font-bold text-lg animate-fade-in">PERFIL CONFIRMADO NO TINDER!</p>
+          <p className="text-green-500 font-bold text-lg animate-fade-in">PROFILE CONFIRMED ON TINDER!</p>
         )}
       </div>
     </div>
