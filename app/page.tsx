@@ -378,6 +378,140 @@ function CarouselPost3({ instagramProfile, imagePreviewUrl, investigatedHandle }
 }
 
 // WhatsApp Analysis Stage Component
+// Tinder Search Stage - Shows searching animation before Tinder results
+function TinderSearchStage({ instagramProfile, imagePreviewUrl, onComplete }: {
+  instagramProfile: any
+  imagePreviewUrl: string | null
+  onComplete: () => void
+}) {
+  const [progress, setProgress] = useState(0)
+  const [searchComplete, setSearchComplete] = useState(false)
+  const [showCheckmark, setShowCheckmark] = useState(false)
+
+  useEffect(() => {
+    // Progress animation over 6 seconds (6000ms)
+    const startTime = Date.now()
+    const duration = 6000
+
+    const progressInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime
+      const newProgress = Math.min((elapsed / duration) * 100, 100)
+      setProgress(newProgress)
+
+      if (newProgress >= 100) {
+        clearInterval(progressInterval)
+        setSearchComplete(true)
+        setShowCheckmark(true)
+        
+        // Auto advance after showing checkmark for 1.5 seconds
+        setTimeout(() => {
+          onComplete()
+        }, 1500)
+      }
+    }, 50)
+
+    return () => {
+      clearInterval(progressInterval)
+    }
+  }, [onComplete])
+
+  const profileImageUrl = instagramProfile?.profile_pic_url
+    ? `/api/instagram-image-proxy?url=${encodeURIComponent(instagramProfile.profile_pic_url)}`
+    : imagePreviewUrl || "/user-profile-illustration.png"
+
+  return (
+    <div className="text-center space-y-8 px-4 max-w-md mx-auto py-12">
+      {/* Title */}
+      <div className="space-y-2">
+        <h2 className="text-2xl font-bold text-foreground">
+          {searchComplete ? "PERFIL ENCONTRADO!" : "BUSCANDO PERFIL SUSPEITO"}
+        </h2>
+        <p className="text-lg text-pink-500 font-semibold flex items-center justify-center gap-2">
+          <svg className={`w-6 h-6 text-pink-500 ${!searchComplete ? 'animate-pulse' : ''}`} viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+            <path d="M12 6c-2.67 0-5.33 1.33-5.33 4s2.66 4 5.33 4 5.33-1.33 5.33-4-2.66-4-5.33-4z"/>
+          </svg>
+          NO TINDER
+          <svg className={`w-6 h-6 text-pink-500 ${!searchComplete ? 'animate-pulse' : ''}`} viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+            <path d="M12 6c-2.67 0-5.33 1.33-5.33 4s2.66 4 5.33 4 5.33-1.33 5.33-4-2.66-4-5.33-4z"/>
+          </svg>
+        </p>
+      </div>
+
+      {/* Profile Image with Tinder Logo */}
+      <div className="relative flex justify-center">
+        <div className="relative">
+          {/* Profile Image */}
+          <div className={`w-40 h-40 rounded-full overflow-hidden border-4 ${searchComplete ? 'border-green-500' : 'border-pink-500'} shadow-2xl transition-all duration-500`}>
+            <img
+              src={profileImageUrl}
+              alt="Profile"
+              className="w-full h-full object-cover"
+              crossOrigin="anonymous"
+            />
+          </div>
+          
+          {/* Tinder Logo - Blinking */}
+          {!showCheckmark && (
+            <div className="absolute -bottom-2 -right-2 w-14 h-14 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
+              <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.5 2.25c-.74 0-1.5.51-1.5 1.63v.32c-.06 1.12-.38 2.2-.93 3.18a7.5 7.5 0 0 1-1.82 2.27c-.44.37-.69.91-.69 1.48v.12c0 1.38 1.12 2.5 2.5 2.5h.88c1.38 0 2.5-1.12 2.5-2.5v-.12c0-.57-.25-1.11-.69-1.48a7.5 7.5 0 0 1-1.82-2.27 7.5 7.5 0 0 1-.93-3.18v-.32c0-1.12-.76-1.63-1.5-1.63zM8.5 17.75c-.83 0-1.5.67-1.5 1.5v.5c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5v-.5c0-.83-.67-1.5-1.5-1.5h-7z"/>
+              </svg>
+            </div>
+          )}
+
+          {/* Checkmark when complete */}
+          {showCheckmark && (
+            <div className="absolute -bottom-2 -right-2 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg animate-bounce">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+          )}
+
+          {/* Scanning ring animation */}
+          {!searchComplete && (
+            <div className="absolute inset-0 rounded-full border-4 border-pink-500/50 animate-ping" />
+          )}
+        </div>
+      </div>
+
+      {/* Progress Bar */}
+      <div className="space-y-3">
+        <div className="w-full h-3 bg-muted rounded-full overflow-hidden">
+          <div 
+            className={`h-full rounded-full transition-all duration-100 ${searchComplete ? 'bg-green-500' : 'bg-gradient-to-r from-pink-500 to-orange-500'}`}
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <p className="text-sm text-muted-foreground">
+          {searchComplete ? "Busca concluida!" : `Analisando base de dados... ${Math.round(progress)}%`}
+        </p>
+      </div>
+
+      {/* Status Messages */}
+      <div className="space-y-2 text-sm">
+        {progress > 15 && (
+          <p className="text-muted-foreground animate-fade-in">Conectando aos servidores do Tinder...</p>
+        )}
+        {progress > 35 && (
+          <p className="text-muted-foreground animate-fade-in">Verificando perfis correspondentes...</p>
+        )}
+        {progress > 55 && (
+          <p className="text-pink-500 font-semibold animate-fade-in">Perfil suspeito localizado!</p>
+        )}
+        {progress > 75 && (
+          <p className="text-muted-foreground animate-fade-in">Carregando dados do perfil...</p>
+        )}
+        {searchComplete && (
+          <p className="text-green-500 font-bold text-lg animate-fade-in">PERFIL CONFIRMADO NO TINDER!</p>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function WhatsAppAnalysisStage({ investigatedPhone, onComplete, userPhoto }: {
   investigatedPhone: string
   onComplete: () => void
@@ -751,7 +885,7 @@ function SpySystemContent() {
   // Countdown timer effect
   useEffect(() => {
     let timer: NodeJS.Timeout | undefined
-    if (currentStage === 7 && timeLeft > 0) {
+    if (currentStage === 8 && timeLeft > 0) {
       timer = setInterval(() => {
         setTimeLeft((prevTime) => prevTime - 1)
       }, 1000)
@@ -764,7 +898,7 @@ function SpySystemContent() {
   // Random notifications effect
   useEffect(() => {
     let notificationInterval: NodeJS.Timeout | undefined
-    if (currentStage === 7) {
+    if (currentStage === 8) {
       notificationInterval = setInterval(() => {
         const randomUser = randomUsers[Math.floor(Math.random() * randomUsers.length)]
         const randomAction = notificationActions[Math.floor(Math.random() * notificationActions.length)]
@@ -1423,7 +1557,7 @@ const fetchUserLocation = async () => {
                     <option value="+82">🇰🇷 +82</option>
                     <option value="+84">🇻🇳 +84</option>
                     <option value="+86">🇨🇳 +86</option>
-                    <option value="+90">🇹🇷 +90</option>
+                    <option value="+90">��🇷 +90</option>
                     <option value="+91">🇮🇳 +91</option>
                     <option value="+92">🇵🇰 +92</option>
                     <option value="+93">🇦🇫 +93</option>
@@ -2477,7 +2611,17 @@ case 4: // OLD STAGE 2: Detection and Notifications
             </Button>
           </div>
         )
-case 5: // NEW STAGE: Tinder Likes Screen
+
+      case 5: // NEW STAGE: Searching Tinder Profile
+        return (
+          <TinderSearchStage 
+            instagramProfile={instagramProfile}
+            imagePreviewUrl={imagePreviewUrl}
+            onComplete={nextStage}
+          />
+        )
+
+case 6: // NEW STAGE: Tinder Likes Screen
   return (
   <div className="flex flex-col w-full max-w-md mx-auto glass-card text-foreground rounded-2xl shadow-2xl h-[calc(100vh-4rem)] overflow-y-auto border border-border">
   <div className="p-4">
@@ -2879,7 +3023,7 @@ case 5: // NEW STAGE: Tinder Likes Screen
             </div>
           </div>
         )
-case 6: // OLD STAGE 3: Revelation - Platform Detection
+case 7: // OLD STAGE 3: Revelation - Platform Detection
   return (
   <div className="text-center space-y-6 px-4">
   <LimitWarningBanner />
@@ -2987,7 +3131,7 @@ case 6: // OLD STAGE 3: Revelation - Platform Detection
   </Button>
 </div>
         )
-      case 7: // OLD STAGE 4: Final CTA
+      case 8: // OLD STAGE 4: Final CTA
         return (
           <div className="text-center space-y-8 px-4">
             <LimitWarningBanner />
