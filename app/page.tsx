@@ -1847,9 +1847,6 @@ const fetchUserLocation = async () => {
   <div className="text-center space-y-8 px-4">
   <LimitWarningBanner />
   <div className="space-y-2">
-    <div className="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/30 mb-2">
-      <span className="text-xs font-semibold tracking-widest text-primary uppercase">Step 2 of 3</span>
-    </div>
     <h2 className="text-2xl md:text-4xl font-bold text-foreground">
       <span className="gradient-text-pink">Facial</span> Analysis
     </h2>
