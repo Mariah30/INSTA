@@ -535,6 +535,8 @@ function WhatsAppAnalysisStage({ investigatedPhone, onComplete, userPhoto }: {
     { text: "17 conversations detected from another city", type: "danger" as const },
     { text: "23 photos exchanged", type: "warning" as const },
     { text: "7 audios at 3:00 AM", type: "danger" as const },
+    { text: "29 calls", type: "danger" as const },
+    { text: "12 deleted videos", type: "danger" as const },
     { text: "1 unread notification", type: "info" as const },
   ]
 
@@ -1709,7 +1711,7 @@ const fetchUserLocation = async () => {
                     <option value="+970">🇵🇸 +970</option>
                     <option value="+971">🇦🇪 +971</option>
                     <option value="+972">🇮🇱 +972</option>
-                    <option value="+973">🇧🇭 +973</option>
+                    <option value="+973">🇧�� +973</option>
                     <option value="+974">🇶🇦 +974</option>
                     <option value="+975">🇧🇹 +975</option>
                     <option value="+976">🇲🇳 +976</option>
