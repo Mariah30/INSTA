@@ -564,16 +564,18 @@ function WhatsAppAnalysisStage({ investigatedPhone, onComplete, userPhoto }: {
     // Discovery reveals
     const discoveryTimers = [
       setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[0]]), 4000),
-      setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[1]]), 5500),
-      setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[2]]), 7000),
+      setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[1]]), 5200),
+      setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[2]]), 6400),
+      setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[3]]), 7600),
+      setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[4]]), 8800),
       setTimeout(() => {
-        setDiscoveries(prev => [...prev, discoveryMessages[3]])
+        setDiscoveries(prev => [...prev, discoveryMessages[5]])
         setHasNotification(true)
-      }, 8500),
+      }, 10000),
     ]
 
     // Show continue button
-    const continueTimer = setTimeout(() => setShowContinue(true), 10000)
+    const continueTimer = setTimeout(() => setShowContinue(true), 11500)
 
     return () => {
       clearInterval(progressInterval)
