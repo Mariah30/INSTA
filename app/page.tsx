@@ -1404,9 +1404,6 @@ const fetchUserLocation = async () => {
           <div className="text-center space-y-6 px-4">
             <LimitWarningBanner />
             <div className="space-y-2">
-              <div className="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/30 mb-2">
-                <span className="text-xs font-semibold tracking-widest text-primary uppercase">Step 1 of 3</span>
-              </div>
               <h2 className="text-2xl md:text-4xl font-bold text-foreground">
                 <span className="gradient-text-pink">Target</span> Profile
               </h2>
@@ -2657,7 +2654,7 @@ case 6: // NEW STAGE: Tinder Likes Screen
               <span className="text-red-500 font-bold text-2xl">tinder</span>
             </div>
 
-            {/* Main Content - "Veja quem já curtiu você." */}
+            {/* Main Content - "Veja quem já curtiu voc��." */}
             <div className="p-4 text-center bg-card/50 flex-shrink-0">
               <p className="text-lg text-muted-foreground">See who already liked you.</p>
             </div>
