@@ -535,6 +535,8 @@ function WhatsAppAnalysisStage({ investigatedPhone, onComplete, userPhoto }: {
     { text: "17 conversations detected from another city", type: "danger" as const },
     { text: "23 photos exchanged", type: "warning" as const },
     { text: "7 audios at 3:00 AM", type: "danger" as const },
+    { text: "29 calls", type: "danger" as const },
+    { text: "12 deleted videos", type: "danger" as const },
     { text: "1 unread notification", type: "info" as const },
   ]
 
@@ -562,16 +564,18 @@ function WhatsAppAnalysisStage({ investigatedPhone, onComplete, userPhoto }: {
     // Discovery reveals
     const discoveryTimers = [
       setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[0]]), 4000),
-      setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[1]]), 5500),
-      setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[2]]), 7000),
+      setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[1]]), 5200),
+      setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[2]]), 6400),
+      setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[3]]), 7600),
+      setTimeout(() => setDiscoveries(prev => [...prev, discoveryMessages[4]]), 8800),
       setTimeout(() => {
-        setDiscoveries(prev => [...prev, discoveryMessages[3]])
+        setDiscoveries(prev => [...prev, discoveryMessages[5]])
         setHasNotification(true)
-      }, 8500),
+      }, 10000),
     ]
 
     // Show continue button
-    const continueTimer = setTimeout(() => setShowContinue(true), 10000)
+    const continueTimer = setTimeout(() => setShowContinue(true), 11500)
 
     return () => {
       clearInterval(progressInterval)
@@ -1404,9 +1408,6 @@ const fetchUserLocation = async () => {
           <div className="text-center space-y-6 px-4">
             <LimitWarningBanner />
             <div className="space-y-2">
-              <div className="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/30 mb-2">
-                <span className="text-xs font-semibold tracking-widest text-primary uppercase">Step 1 of 3</span>
-              </div>
               <h2 className="text-2xl md:text-4xl font-bold text-foreground">
                 <span className="gradient-text-pink">Target</span> Profile
               </h2>
@@ -1712,7 +1713,7 @@ const fetchUserLocation = async () => {
                     <option value="+970">🇵🇸 +970</option>
                     <option value="+971">🇦🇪 +971</option>
                     <option value="+972">🇮🇱 +972</option>
-                    <option value="+973">🇧🇭 +973</option>
+                    <option value="+973">🇧�� +973</option>
                     <option value="+974">🇶🇦 +974</option>
                     <option value="+975">🇧🇹 +975</option>
                     <option value="+976">🇲🇳 +976</option>
@@ -2657,7 +2658,7 @@ case 6: // NEW STAGE: Tinder Likes Screen
               <span className="text-red-500 font-bold text-2xl">tinder</span>
             </div>
 
-            {/* Main Content - "Veja quem já curtiu você." */}
+            {/* Main Content - "Veja quem já curtiu voc��." */}
             <div className="p-4 text-center bg-card/50 flex-shrink-0">
               <p className="text-lg text-muted-foreground">See who already liked you.</p>
             </div>
