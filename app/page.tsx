@@ -522,6 +522,8 @@ function WhatsAppAnalysisStage({ investigatedPhone, onComplete, userPhoto }: {
   const [discoveries, setDiscoveries] = useState<{text: string, type: 'danger' | 'warning' | 'info'}[]>([])
   const [showContinue, setShowContinue] = useState(false)
   const [hasNotification, setHasNotification] = useState(false)
+  const [showPreview, setShowPreview] = useState(false)
+  const [liveViewers, setLiveViewers] = useState(58)
 
   const steps = [
     { label: "Connecting to WhatsApp servers", status: "pending" },
